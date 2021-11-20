@@ -1,0 +1,40 @@
+
+class UserHelper:
+    def __init__(self, user_name, user_password, friend_name,
+                 playlist_name, user_new_password):
+        self.user_name = user_name
+        self.user_password = user_password
+        self.friend_name = friend_name
+        self.playlist_name = playlist_name
+        self.user_new_password = user_new_password
+
+
+class SongsHelper:
+    def __init__(self, song_genre, song_performer, song_title, song_year):
+        self.song_genre = song_genre
+        self.song_performer = song_performer
+        self.song_title = song_title
+        self.song_year = song_year
+
+
+user1 = UserHelper("test_user1", "12345", "test_user2", "playlist1", "56789")
+user2 = UserHelper("test_user2", "abcde", "test_user2", "playlist1", "56789")
+
+
+def get_username(my_data):
+    return my_data['data']['user_name']
+
+
+def get_friend(my_data):
+    return my_data['data']['friends'][0]
+
+
+def get_user_playlists(my_data):
+    return my_data['data']['playlists']
+
+
+def check_response_contains(my_data, substring):
+    if substring in my_data:
+        return True
+    return False
+
