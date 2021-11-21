@@ -33,6 +33,18 @@ def get_user_playlists(my_data):
     return my_data['data']['playlists']
 
 
+def get_playlist_songs(my_data):
+    playlist_songs = []
+    for song in my_data['data']:
+        playlist_songs.append(song['title'])
+
+    return playlist_songs
+
+
+def get_song_rating(my_data):
+    return my_data['data']['rating']
+
+
 def check_response_contains(my_data, substring):
     if substring in my_data:
         return True

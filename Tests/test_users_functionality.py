@@ -30,7 +30,7 @@ def test_add_friend(pretest_actions):
     assert dh.user2.user_name in dh.get_friend(resp)
 
 
-#failure
+@pytest.mark.xfail
 def test_add_friend_non_existing_user(pretest_actions):
     sl.add_user(dh.user1.user_name, dh.user1.user_password)
     sl.add_friend(dh.user1.user_name, dh.user1.user_password, dh.user2.user_name)
@@ -76,3 +76,9 @@ def test_add_existing_playlist(pretest_actions):
     sl.add_playlist(dh.user1.playlist_name, dh.user1.user_name, dh.user1.user_password)
     resp = sl.add_playlist(dh.user1.playlist_name, dh.user1.user_name, dh.user1.user_password)
     assert dh.check_response_contains(resp, "error"), f'Server response doesnt contains Error Message'
+
+
+@pytest.mark.skip("not ready")
+def test_user_updates_password(pretest_actions):
+    sl.add_user(dh.user1.user_name, dh.user1.user_password)
+
