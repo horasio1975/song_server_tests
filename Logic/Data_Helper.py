@@ -1,4 +1,5 @@
 
+
 class UserHelper:
     def __init__(self, user_name, user_password, friend_name,
                  playlist_name, user_new_password):
@@ -15,10 +16,6 @@ class SongsHelper:
         self.song_performer = song_performer
         self.song_title = song_title
         self.song_year = song_year
-
-
-user1 = UserHelper("test_user1", "12345", "test_user2", "playlist1", "56789")
-user2 = UserHelper("test_user2", "abcde", "test_user2", "playlist1", "56789")
 
 
 def get_username(my_data):

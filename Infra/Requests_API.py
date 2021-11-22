@@ -3,7 +3,7 @@ import requests
 
 
 def _observe_response(response):
-    print(f'response json: {response.json()}')
+    #print(f'response json: {response.json()}')
     if response.status_code != 200:
         raise Exception(f'Error Status Code from server: {response.status_code}')
     return response.json()
