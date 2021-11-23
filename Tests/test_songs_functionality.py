@@ -27,9 +27,11 @@ def test_rating_cant_be_lower_than_0(pretest_actions_delete, pretest_actions_ins
     assert actual_rating == 0, f'rating cant be lower than 0: {actual_rating}'
 
 
-def test_user_votes_with_wrong_password(pretest_actions_delete, pretest_actions_insert_songs):
+@pytest.mark.parametrize(("user_name", "user_password"), INVALID_USER_DATA)
+def test_user_votes_with_wrong_data(pretest_actions_delete, pretest_actions_insert_songs,
+                                    user_name, user_password):
     add_user_with_songs(user1.user_name, user1.user_password, user1.playlist_name, songs)
-    resp = increase_rating(user1.playlist_name, songs[0].song_title, user1.user_name, user1.user_new_password)
+    resp = increase_rating(user1.playlist_name, songs[0].song_title, user_name, user_password)
     assert check_response_contains(resp, "error"), f'Server response doesnt contains Error Message'
 
 

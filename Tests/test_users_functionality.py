@@ -30,25 +30,25 @@ def test_add_friend_non_existing_user(pretest_actions_delete):
     assert check_response_contains(resp, "error"), f'Server response doesnt contains Error Message'
 
 
-# add test with wrong username
-def test_add_friend_with_wrong_password(pretest_actions_delete):
+@pytest.mark.parametrize(("user_name", "user_password"), INVALID_USER_DATA)
+def test_add_friend_with_wrong_data(pretest_actions_delete, user_name, user_password):
     add_user(user1.user_name, user1.user_password)
     add_user(user2.user_name, user2.user_password)
-    resp = add_friend(user1.user_name, user2.user_password, user2.user_name)
+    resp = add_friend(user_name, user_password, user2.user_name)
     assert check_response_contains(resp, "error"), f'Server response doesnt contains Error Message'
 
 
 def test_add_playlist(pretest_actions_delete):
     add_user(user1.user_name, user1.user_password)
     add_playlist(user1.playlist_name, user1.user_name, user1.user_password)
-    assert user1.playlist_name in get_user_playlists_response(get_user(user1.user_name)),\
+    assert user1.playlist_name in get_user_playlists_response(get_user(user1.user_name)), \
         f'{user1.user_name} playlists doesnt contain added playlist name'
 
 
-# add test with wrong username
-def test_add_playlist_with_wrong_password(pretest_actions_delete):
+@pytest.mark.parametrize(("user_name", "user_password"), INVALID_USER_DATA)
+def test_add_playlist_with_wrong_data(pretest_actions_delete, user_name, user_password):
     add_user(user1.user_name, user1.user_password)
-    resp = add_playlist(user1.playlist_name, user1.user_name, user2.user_password)
+    resp = add_playlist(user1.playlist_name, user_name, user_password)
     assert check_response_contains(resp, "error"), f'Server response doesnt contains Error Message'
 
 
@@ -57,9 +57,9 @@ def test_2_different_users_add_same_playlist(pretest_actions_delete):
     add_user(user2.user_name, user2.user_password)
     add_playlist(user1.playlist_name, user1.user_name, user1.user_password)
     add_playlist(user1.playlist_name, user2.user_name, user2.user_password)
-    assert user1.playlist_name in get_user_playlists_response(get_user(user1.user_name)),\
+    assert user1.playlist_name in get_user_playlists_response(get_user(user1.user_name)), \
         f'{user1.user_name} playlists doesnt contain added playlist name'
-    assert user1.playlist_name in get_user_playlists_response(get_user(user2.user_name)),\
+    assert user1.playlist_name in get_user_playlists_response(get_user(user2.user_name)), \
         f'{user2.user_name} playlists doesnt contain added playlist name'
 
 
@@ -78,4 +78,3 @@ def test_user_updates_password(pretest_actions_delete):
     resp = add_playlist(user1.playlist_name, user1.user_name, user1.user_new_password)
     assert user1.playlist_name in get_user_playlists_response(get_user(user1.user_name)), \
         f'{user1.user_name} playlists doesnt contain added playlist name'
-
