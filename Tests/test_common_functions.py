@@ -2,14 +2,17 @@ from Logic.SongsServerLogic import *
 from Logic.Data_Helper import *
 import random
 import pytest
+import json
+import os
 
 
 user1 = UserHelper("test_user1", "12345", "test_user2", "playlist1", "56789")
-user2 = UserHelper("test_user2", "abcde", "test_user2", "playlist1", "56789")
+user2 = UserHelper("test_user2", "abcde", "test_user1", "playlist1", "56789")
 
 songs = [SongsHelper("jazz", "best_performer", "jazz_song", "2020"),
          SongsHelper("pop", "best_performer", "pop_song", "2020"),
-         SongsHelper("classic", "best_performer", "classic_song", "2020")
+         SongsHelper("classic", "best_performer", "classic_song", "2020"),
+         SongsHelper("tango", "best_performer", "tango_song", "2020")
          ]
 
 
@@ -49,7 +52,7 @@ def add_users_and_vote(users, playlist_songs):
         else:
             decrease_rating(user1.playlist_name, playlist_songs[0].song_title, user_name, user1.user_password)
             rating = rating - 1 if rating > 0 else 0
-        assert rating == get_song_rating(get_song(playlist_songs[0].song_title))
+        assert rating == get_song_rating_response(get_song(playlist_songs[0].song_title))
         user_name = user_name[0:9]
 
 
@@ -64,7 +67,15 @@ def prepare_songs_ratings(playlist_songs):
             increase_rating(user1.playlist_name, playlist_songs[1].song_title, user_name, user1.user_password)
         if i < 3:
             increase_rating(user1.playlist_name, playlist_songs[2].song_title, user_name, user1.user_password)
+            increase_rating(user1.playlist_name, playlist_songs[3].song_title, user_name, user1.user_password)
         user_name = user_name[0:9]
+
+
+def load_json_file():
+    path = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..', 'songs_server', 'users.json'))
+    with open(path) as json_file:
+        return json.load(json_file)
+
 
 
 

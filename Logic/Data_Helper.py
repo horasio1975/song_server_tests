@@ -18,19 +18,19 @@ class SongsHelper:
         self.song_year = song_year
 
 
-def get_username(my_data):
+def get_username_response(my_data):
     return my_data['data']['user_name']
 
 
-def get_friend(my_data):
+def get_friend_response(my_data):
     return my_data['data']['friends'][0]
 
 
-def get_user_playlists(my_data):
+def get_user_playlists_response(my_data):
     return my_data['data']['playlists']
 
 
-def get_playlist_songs(my_data):
+def get_playlist_songs_response(my_data):
     playlist_songs = []
     for song in my_data['data']:
         playlist_songs.append(song['title'])
@@ -38,8 +38,12 @@ def get_playlist_songs(my_data):
     return playlist_songs
 
 
-def get_song_rating(my_data):
+def get_song_rating_response(my_data):
     return my_data['data']['rating']
+
+
+def get_ranked_songs_response(my_data):
+    return my_data['data']
 
 
 def check_response_contains(my_data, substring):
