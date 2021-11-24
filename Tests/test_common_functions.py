@@ -27,6 +27,12 @@ def pretest_actions_insert_songs():
     insert_songs_into_db(songs)
 
 
+INVALID_USER_DATA = [
+    (user1.user_name, user2.user_password),
+    ("userXXX", user1.user_password)
+]
+
+
 def add_user_with_songs(username, password, playlist, playlist_songs):
     add_user(username, password)
     add_playlist(playlist, username, password)
